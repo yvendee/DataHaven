@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data from field_db</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        th:last-child, td:last-child {
+            border-right: none; /* Remove right border for last column */
+        }
+        tr:last-child th, tr:last-child td {
+            border-bottom: none; /* Remove bottom border for last row */
+        }
+    </style>
+</head>
+<body>
+    <h2>Data from field_db</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        {% for field in field_db %}
+        <tr>
+            <td>{{ field[0] }}</td>
+            <td>{{ field[1] }}</td>
+            <td>{{ field[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

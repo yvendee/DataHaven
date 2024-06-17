@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint, render_template
 from flask_cors import CORS
 import json
 
 app = Flask("datahaven")
 CORS(app)
 
+apps = Blueprint('apps', __name__, template_folder='templates', static_folder='static')
 
 
 # List to store fields, each represented as [id, name, value]
@@ -65,11 +66,10 @@ def get_post_request():
     else:
         return jsonify({"error": "Field not found"}), 404
 
-# Route to handle GET requests for retrieving all data from field_db list
 @app.route('/readData')
 def read_data():
-    # Return all data from field_db list
-    return jsonify(field_db), 200
+    # Render the read_data.html template with field_db data
+    return render_template('read_data.html', field_db=field_db)
 
 
 @app.route('/deleteData', methods=['POST'])
@@ -91,7 +91,7 @@ def delete_data_by_full_name_post():
     else:
         return jsonify({"error": f"No entries found for {full_name}"}), 404
 
-        
+
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({"message": "Welcome to the datahaven API"})
